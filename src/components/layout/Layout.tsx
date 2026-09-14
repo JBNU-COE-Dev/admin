@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/common/Button';
 
@@ -9,12 +9,11 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { logout } = useAuth();
-  const navigate = useNavigate();
   const location = useLocation();
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    window.location.href = '/admin/login';
   };
 
   const isActive = (path: string) => {
@@ -40,16 +39,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   }`}
                 >
                   공지사항
-                </Link>
-                <Link
-                  to="/gallery"
-                  className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
-                    isActive('/gallery')
-                      ? 'border-blue-500 text-gray-900'
-                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                  }`}
-                >
-                  갤러리
                 </Link>
                 <Link
                   to="/resources"

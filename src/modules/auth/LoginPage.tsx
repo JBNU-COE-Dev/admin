@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Input } from '@/components/common/Input';
 import { Button } from '@/components/common/Button';
@@ -12,7 +11,6 @@ export const LoginPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,10 +19,9 @@ export const LoginPage: React.FC = () => {
 
     try {
       await login({ username, password });
-      navigate('/notices');
+      window.location.href = '/admin/notices';
     } catch (err) {
       setError(getErrorMessage(err));
-    } finally {
       setIsLoading(false);
     }
   };

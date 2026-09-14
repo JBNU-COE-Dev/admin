@@ -1,6 +1,6 @@
 # FeeL 관리자 홈페이지
 
-공지사항 및 갤러리를 관리하기 위한 관리자 대시보드입니다.
+공지사항 및 파일을 관리하기 위한 관리자 대시보드입니다.
 
 ## 기술 스택
 
@@ -19,7 +19,7 @@ src/
 │   ├── auth.ts      # 인증 API
 │   ├── client.ts    # Axios 설정 및 인터셉터
 │   ├── notices.ts   # 공지사항 API
-│   └── gallery.ts   # 갤러리 API
+│   └── resources.ts # 파일/리소스 API
 ├── components/       # 공통 컴포넌트
 │   ├── auth/        # 인증 관련 컴포넌트
 │   ├── common/      # 공통 UI 컴포넌트
@@ -29,7 +29,7 @@ src/
 ├── modules/          # 기능별 모듈
 │   ├── auth/        # 로그인 모듈
 │   ├── notices/     # 공지사항 관리 모듈
-│   └── gallery/     # 갤러리 관리 모듈
+│   └── resources/   # 파일 업로드 모듈
 ├── types/            # TypeScript 타입 정의
 ├── utils/            # 유틸리티 함수
 ├── App.tsx           # 메인 앱 컴포넌트
@@ -76,7 +76,7 @@ VITE_API_BASE_URL=http://localhost:8080
 
 - Base URL: `http://localhost:8080`
 - 공지사항 API: `/api/notices`
-- 갤러리 API: `/api/gallery`
+- 리소스 API: `/api/resources`
 - 인증 API: `/api/auth` (구현 필요)
 
 ### 인증 API 구현 필요
@@ -121,11 +121,9 @@ VITE_API_BASE_URL=http://localhost:8080
   - 목록 조회 (페이징, 카테고리 필터)
   - 생성/수정/삭제
   - 이미지 업로드 및 미리보기
-- ✅ 갤러리 관리
-  - 목록 조회 (그리드 레이아웃, 페이징, 카테고리 필터)
-  - 검색 기능 (제목 검색)
-  - 생성/수정/삭제
-  - 이미지 업로드 및 미리보기
+- ✅ 파일 업로드 (리소스 관리)
+  - 카테고리별 업로드 (감사용, 재정보고, 갤러리, 학업지원)
+  - 목록 조회 및 메타 수정/삭제
 
 ### 향후 확장 가능한 기능
 

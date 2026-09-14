@@ -5,8 +5,6 @@ import { Layout } from '@/components/layout/Layout';
 import { LoginPage } from '@/modules/auth/LoginPage';
 import { NoticeListPage } from '@/modules/notices/NoticeListPage';
 import { NoticeFormPage } from '@/modules/notices/NoticeFormPage';
-import { GalleryListPage } from '@/modules/gallery/GalleryListPage';
-import { GalleryFormPage } from '@/modules/gallery/GalleryFormPage';
 import { ResourceUploadPage } from '@/modules/resources/ResourceUploadPage';
 import { PledgeProgressPage } from '@/modules/pledge/PledgeProgressPage';
 import { ActivityListPage } from '@/modules/activities/ActivityListPage';
@@ -46,36 +44,6 @@ function App() {
               <ProtectedRoute>
                 <Layout>
                   <NoticeFormPage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/gallery"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <GalleryListPage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/gallery/new"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <GalleryFormPage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/gallery/:id/edit"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <GalleryFormPage />
                 </Layout>
               </ProtectedRoute>
             }
