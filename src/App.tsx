@@ -11,6 +11,8 @@ import { ActivityListPage } from '@/modules/activities/ActivityListPage';
 import { ActivityFormPage } from '@/modules/activities/ActivityFormPage';
 import { CalendarListPage } from '@/modules/calendar/CalendarListPage';
 import { CalendarFormPage } from '@/modules/calendar/CalendarFormPage';
+import { UserListPage } from '@/modules/users/UserListPage';
+import { UserDetailPage } from '@/modules/users/UserDetailPage';
 
 function App() {
   return (
@@ -124,6 +126,26 @@ function App() {
               <ProtectedRoute>
                 <Layout>
                   <CalendarFormPage />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <UserListPage />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/users/:id"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <UserDetailPage />
                 </Layout>
               </ProtectedRoute>
             }

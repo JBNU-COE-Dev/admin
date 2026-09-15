@@ -46,6 +46,15 @@ export interface Page<T> {
   };
 }
 
+// 회원 관리 (일반 회원)
+export interface AdminMemberDto {
+  id: number;
+  email: string;
+  nickname: string;
+  createdAt: string;
+  postCount: number;
+}
+
 // 인증 관련 타입
 export interface LoginRequest {
   username: string;

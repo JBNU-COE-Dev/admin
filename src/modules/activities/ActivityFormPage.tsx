@@ -27,6 +27,7 @@ export const ActivityFormPage: React.FC = () => {
   const [existingThumbnailUrl, setExistingThumbnailUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isTeamRecruitment, setIsTeamRecruitment] = useState(false);
 
   const {
     register,
@@ -52,7 +53,9 @@ export const ActivityFormPage: React.FC = () => {
       activitiesApi
         .getById(Number(id))
         .then((data) => {
-          setValue('category', data.category);
+          const teamRecruitment = data.category === 'TEAM_RECRUITMENT';
+          setIsTeamRecruitment(teamRecruitment);
+          setValue('category', teamRecruitment ? 'TEAM_RECRUITMENT' : data.category);
           setValue('title', data.title);
           setValue('content', data.content);
           setValue('author', data.author);
@@ -75,6 +78,9 @@ export const ActivityFormPage: React.FC = () => {
     setError(null);
     try {
       const payload: ActivityPostRequestDto = { ...data };
+      if (isTeamRecruitment) {
+        payload.category = 'TEAM_RECRUITMENT';
+      }
       if (isEdit && !thumbnailFile && existingThumbnailUrl) {
         payload.thumbnailUrl = existingThumbnailUrl;
       }
@@ -96,18 +102,24 @@ export const ActivityFormPage: React.FC = () => {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">
-        {isEdit ? '대외활동/공모전 수정' : '대외활동/공모전 등록'}
+        {isTeamRecruitment
+          ? '팀원 모집 수정'
+          : isEdit
+            ? '대외활동/공모전 수정'
+            : '대외활동/공모전 등록'}
       </h1>
 
       {error && <Alert type="error" message={error} onClose={() => setError(null)} />}
 
       <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-lg shadow p-6">
-        <Select
-          label="카테고리 *"
-          options={categoryOptions}
-          {...register('category', { required: '카테고리를 선택하세요.' })}
-          error={errors.category?.message}
-        />
+        {!isTeamRecruitment && (
+          <Select
+            label="카테고리 *"
+            options={categoryOptions}
+            {...register('category', { required: '카테고리를 선택하세요.' })}
+            error={errors.category?.message}
+          />
+        )}
 
         <Input
           label="제목 *"
