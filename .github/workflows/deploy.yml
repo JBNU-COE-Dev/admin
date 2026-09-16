@@ -39,6 +39,12 @@ jobs:
             SERVICE=admin-front
             WAIT_SEC=10
 
+            # 세 레포(backend/user-front/admin)가 같은 서버의 같은 compose 프로젝트를
+            # 건드린다. GitHub의 concurrency는 레포 단위라 레포 간 동시 실행을 막지
+            # 못하므로 서버에서 잠근다.
+            exec 9>/tmp/feel-deploy.lock
+            flock -w 300 9 || { echo "ERR: 다른 배포가 진행 중 (5분 대기 초과)"; exit 1; }
+
             compose() { docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" "$@"; }
 
             require_env() {
