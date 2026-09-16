@@ -93,7 +93,9 @@ jobs:
             fi
 
             echo "=== 정적 파일 응답 확인 ==="
-            if ! docker exec "$CID" wget -q -T 5 -O /dev/null "http://localhost/"; then
+            # busybox wget은 해석된 주소 중 하나만 시도하고 폴백하지 않는다.
+            # localhost는 ::1로도 해석되므로 127.0.0.1을 직접 쓴다.
+            if ! docker exec "$CID" wget -q -T 5 -O /dev/null "http://127.0.0.1/"; then
               echo "ERR: 컨테이너는 살아 있으나 응답 없음 — 최근 로그 100줄"
               compose logs --tail=100 "$SERVICE"
               exit 1
